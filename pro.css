@@ -1,0 +1,119 @@
+/* Liste des variables de couleurs */
+:root {
+  --green-color: rgb(105, 185, 105);
+}
+
+/* Initialisation des fonts et des couleurs */
+.green-color {
+  color: var(--green-color);
+}
+h1 {
+  font-size: 60px;
+}
+h2 {
+  font-size: 30px;
+}
+h5 {
+  font-size: 25px;
+}
+
+/* Resizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica";
+  list-style: none;
+  text-decoration: none;
+}
+
+/* Style du header */
+header {
+  position: fixed;
+  z-index: 9999999;
+  background-color: whitesmoke;
+  height: 15vh;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header .header-logo {
+  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  right: 0px;
+}
+
+header .header-logo img {
+  cursor: pointer;
+  mix-blend-mode: multiply;
+  height: 15vh;
+  width: 150px;
+  position: relative;
+  right: 20px;
+}
+.h2 {
+  position: relative;
+  right: 50px;
+}
+.navbar {
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+}
+.search {
+  width: 200px;
+  height: 30px;
+  position: relative;
+  right: 10px;
+  border-radius: 10px;
+  border: none;
+  padding-inline: 12px;
+}
+body {
+  display: flex;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+#map {
+  width: 70%;
+  height: 100vh;
+
+  margin-top: 100px;
+}
+#sidebar {
+  margin-top: 200px;
+  width: 30%;
+  height: 100vh;
+  background-color: #0c798a3e;
+  border-left: 1px solid #ddd;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+  display: none; /* Hide by default */
+  transition: 1s all ease-in-out;
+}
+.leaflet-label {
+  font-size: 12px;
+  background-color: rgb(8, 151, 36);
+  padding: 2px;
+  border-radius: 3px;
+}
+h2 {
+  margin-top: 0;
+}
+.pharmacy-info {
+  border-bottom: 1px solid #02b03f;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  background-color: #02b03f;
+}

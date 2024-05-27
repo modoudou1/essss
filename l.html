@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Catch the Avatar</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        text-align: center;
+      }
+      .game-area {
+        position: relative;
+        width: 600px;
+        height: 400px;
+        border: 2px solid #333;
+        margin: 20px auto;
+        background-color: #fff;
+      }
+      .avatar {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background-color: #1976d2;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: top 0.2s, left 0.2s;
+      }
+      .score {
+        font-size: 1.5em;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Catch the Avatar</h1>
+      <div class="game-area" id="gameArea">
+        <div class="avatar" id="avatar"></div>
+      </div>
+      <div class="score">Score: <span id="score">0</span></div>
+    </div>
+    <script>
+      const avatar = document.getElementById("avatar");
+      const gameArea = document.getElementById("gameArea");
+      const scoreDisplay = document.getElementById("score");
+      let score = 0;
+
+      function getRandomPosition(element) {
+        const x = gameArea.clientWidth - element.clientWidth;
+        const y = gameArea.clientHeight - element.clientHeight;
+        const randomX = Math.floor(Math.random() * x);
+        const randomY = Math.floor(Math.random() * y);
+        return { x: randomX, y: randomY };
+      }
+
+      function moveAvatar() {
+        const randomPosition = getRandomPosition(avatar);
+        avatar.style.left = `${randomPosition.x}px`;
+        avatar.style.top = `${randomPosition.y}px`;
+      }
+
+      avatar.addEventListener("click", () => {
+        score++;
+        scoreDisplay.textContent = score;
+        moveAvatar();
+      });
+
+      setInterval(moveAvatar, 1000);
+
+      window.onload = () => {
+        moveAvatar();
+      };
+    </script>
+  </body>
+</html>
