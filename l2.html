@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demandes de Médicaments</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f4f4f4;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      th,
+      td {
+        padding: 10px;
+        border: 1px solid #ccc;
+        text-align: left;
+      }
+      th {
+        background-color: #f8f8f8;
+      }
+      button {
+        padding: 5px 10px;
+        border: none;
+        background-color: #28a745;
+        color: white;
+        cursor: pointer;
+      }
+      button.reject {
+        background-color: #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Demandes de Médicaments</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nom du Médicament</th>
+          <th>Nom du Client</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="demandesTable">
+        <!-- Les demandes seront chargées ici -->
+      </tbody>
+    </table>
+
+    <script>
+      function loadDemandes() {
+        fetch("get_demandes.php")
+          .then((response) => response.json())
+          .then((data) => {
+            const demandesTable = document.getElementById("demandesTable");
+            demandesTable.innerHTML = "";
+            data.forEach((demande) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                            <td>${demande.medicament}</td>
+                            <td>${demande.client}</td>
+                            <td>${demande.email}</td>
+                            <td>
+                                <button onclick="respondDemande(${demande.id}, 'oui')">Accepter</button>
+                                <button class="reject" onclick="respondDemande(${demande.id}, 'non')">Rejeter</button>
+                            </td>
+                        `;
+              demandesTable.appendChild(row);
+            });
+          });
+      }
+
+      function respondDemande(id, reponse) {
+        fetch("respond_demande.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ id, reponse }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.status === "success") {
+              loadDemandes();
+            } else {
+              alert("Erreur lors de la réponse à la demande.");
+            }
+          });
+      }
+
+      // Charger les demandes au chargement de la page
+      window.onload = loadDemandes;
+    </script>
+  </body>
+</html>
